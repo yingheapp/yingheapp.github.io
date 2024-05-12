@@ -8,77 +8,10 @@
     <title>硬核影视指南</title>
     <link rel="shortcut icon" href="https://pic.rmb.bdstatic.com/bjh/user/5ee4972c05c77938d80e85c43954b336.png">
     <link rel="stylesheet" href="./style.css"/>
+    <script type="text/javascript" src="./index.js"></script>
 </head>
 <body>
-<script>
-        function checkDomainWithImage(domain, statusMap) {
-          return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-              statusMap.set(domain, '连接成功');
-              updateStatus(domain, '连接成功');
-              resolve();
-            };
-            img.onerror = () => {
-              statusMap.set(domain, '无法访问');
-              updateStatus(domain, '无法访问');
-              resolve();
-            };
-            img.src = `https://${domain}/status.png`; // 尝试加载域名的favicon
-          });
-        }
-        
-        function updateStatus(domain, status) {
-          const domainElement = document.querySelector(`#results .domain-status[data-domain="${domain}"]`);
-          if (domainElement) {
-            const statusElement = domainElement.querySelector('.status');
-            statusElement.textContent = status;
-            
-            // 移除之前的状态类
-            domainElement.classList.remove('success', 'failure');
-            
-            // 根据状态添加对应的类
-            if (status === '连接成功') {
-              domainElement.classList.add('success');
-            } else if (status === '无法访问') {
-              domainElement.classList.add('failure');
-            }
-          }
-        }
-        
-        // 初始化域名检查
-        function initDomainCheck() {
-          const domains = ['yinghe.app', 'yinghe.tv', 'yingheapp.com']; // 替换为您想要检查的域名列表
-          const resultsElement = document.getElementById('results');
-          const statusMap = new Map();
-        
-          domains.forEach(domain => {
-            const domainElement = document.createElement('div');
-            domainElement.classList.add('domain-status');
-            domainElement.dataset.domain = domain;
-            const domainLabel = document.createElement('div');
-            domainLabel.classList.add('name');
-            domainLabel.textContent = domain;
-            domainElement.appendChild(domainLabel);
-            const statusElement = document.createElement('div');
-            statusElement.classList.add('status');
-            statusElement.textContent = '检测中...';
-            domainElement.appendChild(statusElement);
-            const linkElement = document.createElement('a');
-            linkElement.href = `https://${domain}`;
-            linkElement.target = '_blank';
-            linkElement.classList.add('link');
-            linkElement.textContent = '访问';
-            domainElement.appendChild(linkElement);
-        
-            resultsElement.appendChild(domainElement);
-        
-            checkDomainWithImage(domain, statusMap);
-          });
-        }
-        
-        window.onload = initDomainCheck;
-        </script>
+
         
 <div class="main">
     <div class="logo"><img src="https://pic.rmb.bdstatic.com/bjh/user/d82efa1442b1f2b3575b48ce7fc227b9.png"></div>
